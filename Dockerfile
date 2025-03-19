@@ -1,22 +1,17 @@
-# Use latest Flutter Docker image
-FROM ghcr.io/cirruslabs/flutter:latest
+# Use the official Python image
+FROM python:3.9
 
-# Set working directory
+# Set the working directory
 WORKDIR /app
 
-# Copy pubspec files first (for better caching)
-COPY pubspec.yaml pubspec.lock ./
-
-# Upgrade Dart SDK & Install Dependencies
-RUN flutter --version
-RUN flutter doctor
-RUN flutter pub get
-
-# Copy the rest of the project
+# Copy project files
 COPY . .
 
-# Expose the Flask API port (if using Flask for backend)
+# Install dependencies
+RUN pip install -r requirements.txt
+
+# Expose the Flask port
 EXPOSE 5000
 
-# Start the backend service
-CMD ["dart", "ai_backend.py"]
+# Start the Flask server
+CMD ["python", "ai_backend.py"]
