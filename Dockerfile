@@ -1,17 +1,17 @@
-# Use the official Python image
+# Use Python image
 FROM python:3.9
 
-# Set the working directory
+# Set working directory
 WORKDIR /app
 
-# Copy project files
+# Copy all files to container
 COPY . .
 
 # Install dependencies
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose the Flask port
+# Expose API port
 EXPOSE 5000
 
-# Start the Flask server
+# Run Flask API
 CMD ["python", "ai_backend.py"]
